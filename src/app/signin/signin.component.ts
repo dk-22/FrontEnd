@@ -9,6 +9,17 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 export class SigninComponent implements OnInit {
  
   siginForm: FormGroup;  
+
+  welcomeMsg='welcome back'
+  innerEmail='Email'
+  innerPwd='Password'
+  emailAdd=new FormControl('');
+
+  showAlert(em, pwd){
+    alert('Email is '+em +'\n\nPassword is '+pwd)
+    // alert('Password is '+pwd)
+    // console.log('Email is'+this.emailAdd)
+  }
   
   constructor(private formBuilder: FormBuilder) { 
     /*
@@ -19,7 +30,7 @@ export class SigninComponent implements OnInit {
 */
 this.siginForm = formBuilder.group({ // building the form using formBuilder
   emailAdd : ['', [Validators.required, Validators.email]],
-  passwrd : ['', Validators.required],
+  passwrd : ['', [Validators.required, Validators.minLength(8), Validators.maxLength(12)]],
 })
 
 

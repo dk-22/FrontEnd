@@ -7,13 +7,13 @@
           <div class="container">
             <div class="row">
               <div class="col-md-9 col-lg-8 mx-auto">
-                <h3 class="login-heading mb-4 text-center">Welcome back!</h3>
+                <h3 class="login-heading mb-4 text-center">{{ welcomeMsg | uppercase}}</h3>
   
                 <!-- Sign In Form -->
                 <form [formGroup]="siginForm" (ngSubmit)="postData();">
                   <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" formControlName="emailAdd">
-                    <label for="floatingInput">Email address</label>
+                    <input #emailAdd type="email" class="form-control" id="floatingInput" placeholder="name@example.com" formControlName="emailAdd">
+                    <label for="floatingInput" [innerHTML]="innerEmail"></label>
                     <span *ngIf="siginForm.get('emailAdd').touched && siginForm.get('emailAdd').hasError('required')">Please enter email address</span>
                     <span *ngIf="siginForm.get('emailAdd').touched && siginForm.get('emailAdd').hasError('email')">Please enter a valid email address</span>
 
@@ -21,9 +21,10 @@
 
                   <br/>
                   <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="passwrd">
-                    <label for="floatingPassword">Password</label>
+                    <input #passwrd type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="passwrd">
+                    <label for="floatingPassword" [innerHTML]="innerPwd"></label>
                     <span *ngIf="siginForm.get('passwrd').touched && siginForm.get('passwrd').hasError('required')">Please enter your password</span>
+                    <span *ngIf="siginForm.get('passwrd').touched && siginForm.get('passwrd').hasError('minlength')">Please password should have a minimum of 8 characters</span>
 
                   </div>
   
@@ -36,7 +37,7 @@
   
                   <br/><br/>
                   <div class="d-grid">
-                    <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit" [disabled]="!siginForm.valid">Sign in</button>
+                    <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" (click)="showAlert(emailAdd.value, passwrd.value)" type="submit" [disabled]="!siginForm.valid">Sign in</button>
                     <div class="text-center">
                         <br/>
                       <a class="small" href="#">Forgot password?</a>
